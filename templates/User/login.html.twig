@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="container inner">
+        <div>
+            <div>
+                <p>Veuillez vous identifier :</p>
+                <form class="m-t" role="form" action="{{ path('login') }}" method="post" novalidate>
+                    <div class="form-group">
+                        <input name="_username" type="text" maxlength="180" class="form-control" value="{{ last_username }}" placeholder="Email" required="">
+                    </div>
+                    <div class="form-group">
+                        <input name="_password" type="password" maxlength="64" class="form-control" placeholder="Mot de passe" required="">
+                        {% if error %}
+                            <div class="alert alert-danger" role="alert">{{ error|trans }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary block full-width m-b" title="Se connecter">Ok</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

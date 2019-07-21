@@ -1,0 +1,15 @@
+<div class="cbp-loadMore-block1">
+    {% for project in projects | slice(6, 9) %}
+    <li class="cbp-item frame architecture"> <a class="cbp-caption cbp-singlePage"  href="{{ path('project', {id: project.id}) }}">
+            <div class="cbp-caption-defaultWrap"> <img src="img/projets/{{ project.image.url }}" alt="" style="{{ project.image.style }}"> </div>
+            <div class="cbp-caption-activeWrap">
+                <div class="cbp-l-caption-alignCenter">
+                    <div class="cbp-l-caption-body">
+                        <div class="cbp-l-caption-title">{{ project.title }}</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </li>
+    {% endfor %}
+</div>

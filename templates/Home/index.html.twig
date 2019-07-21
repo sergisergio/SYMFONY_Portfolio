@@ -1,0 +1,215 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+
+<section id="portfolio" class="portfolio">
+    <div class="box">
+        <h2 class="section-title pull-left">Projets</h2>
+        <div id="filters-container" class="cbp-l-filters-alignRight pull-right">
+            <div data-filter="*" class="cbp-filter-item-custom-active cbp-filter-item-custom btn">Tous</div>
+            {% for filter in filters %}
+                <div data-filter=".{{ filter.name }}" class="cbp-filter-item-custom btn">{{ filter.name }}</div>
+            {% endfor %}
+        </div>
+        <!-- /#filters-container -->
+        <div class="clearfix"></div>
+        <div id="grid-container" class="cbp-l-grid-masonry">
+            <ul>
+                {% for project in projects %}
+
+                <li class="cbp-item frame architecture">
+                    <a class="cbp-caption cbp-singlePage" href="{{ path('project', {id: project.id}) }}">
+                        <div class="cbp-caption-defaultWrap"> <img src="img/projets/{{ project.image.url }}" alt="" style="{{ project.image.style }}"> </div>
+                        <div class="cbp-caption-activeWrap">
+                            <div class="cbp-l-caption-alignCenter">
+                                <div class="cbp-l-caption-body">
+                                    <div class="cbp-l-caption-title">{{ project.title }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- /.cbp-l-grid-masonry -->
+        <div class="cbp-l-loadMore-button"> <a href="{{ path('more') }}" class="cbp-l-loadMore-button-link btn">Voir plus</a> </div>
+    </div>
+    <!-- /.box -->
+</section>
+<!-- /#portfolio -->
+
+    <section id="about">
+        <div class="box">
+            <h2 class="section-title">Qui suis-je ?</h2>
+            <div class="row">
+                <div class="col-md-3 col-md-push-9 col-sm-4 col-sm-push-4 col-xs-4 col-xs-push-4">
+                    <figure><img src="{{ asset('img/philippe.jpg') }}" alt="" /></figure>
+                </div>
+                <!-- /column -->
+                <div class="col-md-9 col-md-pull-3 col-sm-12 col-xs-12" >
+                    <p class="lead">Depuis plusieurs années, je m'intéresse aux nouvelles technologies et me suis découvert une passion pour le développement. Ayant commencé à développer en autodidacte, j'ai , par la suite, rejoint une formation G2R de 3 mois en 2017 suivi d'un stage.</p>
+                    <p class="lead">J'ai poursuivi cette formation en effectuant en 2018 le parcours PHP/Symfony chez Openclassrooms. Formation très intense de 12 mois durant laquelle j'ai validé différents projets (Wordpress, UML, PHP orienté objet, Symfony, API REST...) pour finalement valider mon diplôme RNCP2.
+                    </p>
+                    <p class="lead">Enfin, j'ai intégré une pépinière Symfony (formation de 3 mois pour intégrer la société dans laquelle je suis maintenant): 3 mois sur l'orienté objet, MongoDb, Redis, Symfony évidemment et un mois sur Angular7.
+                    </p>
+                    <p class="lead">Depuis mars, je suis ingénieur d'études et développement.</p>
+
+                    <p class="lead">En parallèle, et durant les 3 premiers mois, je participe à des conférences SensioLabs.</p>
+
+                    <p class="lead">Découvrant de plus en plus de choses dans cet univers, je me concentre pour l'instant sur le PHP et Symfony ainsi que sur JavaScript et sur Angular, mais j'essaie, en parallèle, de m'intéresser au langage Python par exemple, Drupal, etc...</p>
+                </div>
+                <!-- /column -->
+            </div>
+            <!-- /.row -->
+            <div class="clearfix"></div>
+            <div class="divide40"></div>
+            <h2 class="section-title"></h2>
+            <div class="divide10"></div>
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /#about -->
+
+    <section id="skills">
+        <div class="box">
+            <h2 class="section-title">Compétences</h2>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="divide40"></div>
+                    {% for skill in skills %}
+                    <div class="barWrapper">
+                        <span class="progressText"><B>{{ skill.name }}</B></span>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.level }}" aria-valuemin="0" aria-valuemax="100" >
+                                <span  class="popOver" data-toggle="tooltip" data-placement="top" title="{{ skill.level }}%"> </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <div class="divide40"></div>
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"> <a data-toggle="collapse" class="panel-toggle active" data-parent="#accordion" href="#collapseOne"> HTML/CSS/Bootstrap</a> </h4> </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body"> Suite à de nombreuses lignes de code, de lectures de tutoriaux, de lectures de vidéo ainsi qu'à ma formation, j'ai pu acquérir de bonnes bases afin de construire un site. J'ai ensuite continué sur Bootstrap et m'intéresse à d'autres librairies, pour mettre en place, par exemple un site en material design.
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"> <a data-toggle="collapse" class="panel-toggle" data-parent="#accordion" href="#collapseTwo"> JS/Jquery/Angular/Node.js/React.js</a> </h4> </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body"> Mon premier langage de programmation : Javascript.
+                                    Beaucoup de travail pour comprendre ce langage en natif avant de passer à jQuery. Je m'intéresse également à Angular et React ainsi qu'à Node en parallèle.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"> <a data-toggle="collapse" class="panel-toggle" data-parent="#accordion" href="#collapseThree"> PHP/mySQL</a> </h4> </div>
+                            <div id="collapseThree" class="panel-collapse collapse">
+                                <div class="panel-body"> Au cours de ma formation , j'ai également eu des cours et des projets avec PHP et MySql : chat, espace membres, blog...</div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"> <a data-toggle="collapse" class="panel-toggle" data-parent="#accordion" href="#collapseFour">CMS</a> </h4> </div>
+                            <div id="collapseFour" class="panel-collapse collapse">
+                                <div class="panel-body">Le plus connu et le plus utilisé étant Wordpress, je m'intéresse plutôt à ce CMS (d'autant plus pour PHP et SQL).Cependant, j'ai pour projet, en parallèle, de faire un site avec Drupal et/ou Prestashop.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/column -->
+            </div>
+            <div class="divide10"></div>
+        </div>
+        <!-- /.box -->
+    </section>
+
+    <section id="contact">
+        <div class="box">
+            <h2 class="section-title">Me contacter</h2>
+            <p></p>
+            <div class="divide20"></div>
+            <div class="row text-center services-2">
+                <div class="col-md-3 col-sm-12"> <i class="budicon-map"></i>
+                    <p>17 Place Saint-Pierre
+                        <br> 75018 PARIS</p>
+                </div>
+                <div class="col-md-3 col-sm-12"> <i class="budicon-telephone"></i>
+                    <p>01 42 76 03 81</p>
+                </div>
+                <div class="col-md-3 col-sm-12"> <i class="budicon-mobile"></i>
+                    <p>06 47 51 22 85</p>
+                </div>
+                <div class="col-md-3 col-sm-12"> <i class="budicon-mail"></i>
+                    <p> <a class="nocolor" href="mailto:#">contact@philippetraon.com</a> </p>
+                </div>
+            </div>
+            <!-- /.services-2 -->
+            <div class="divide30"></div>
+            <div class="form-container">
+                <div class="response alert alert-success"></div>
+                <form class="forms" action="{{ path('contact') }}" method="post">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-row text-input-row name-field">
+                                    <label>Nom</label>
+                                    <input type="text" name="name" class="text-input defaultText required defaultTextActive"> </div>
+                                <div class="form-row text-input-row email-field">
+                                    <label>Email</label>
+                                    <input type="text" name="email" class="text-input defaultText required email defaultTextActive"> </div>
+                                <div class="form-row text-input-row subject-field">
+                                    <label>Objet</label>
+                                    <input type="text" name="subject" class="text-input defaultText defaultTextActive"> </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 lp5">
+                                <div class="form-row text-area-row">
+                                    <label>Message</label>
+                                    <textarea name="message" class="text-area required"></textarea>
+                                </div>
+                                <div class="form-row hidden-row">
+                                    <input type="hidden" name="hidden" value=""> </div>
+                                <div class="nocomment" style="display: none;">
+                                    <label for="nocomment">Laisser le champ libre</label>
+                                    <input id="nocomment" value="" name="nocomment"> </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="button-row pull-right">
+                                    <input type="submit" value="Envoyer" name="submit" class="btn btn-submit bm0"> </div>
+                            </div>
+                            <div class="col-sm-6 lp5">
+                                <div class="button-row pull-left">
+                                    <input type="reset" value="Effacer" name="reset" class="btn btn-submit bm0"> </div>
+                            </div>
+                            <input type="hidden" name="v_error" id="v-error" value="Required">
+                            <input type="hidden" name="v_email" id="v-email" value="Enter a valid email"> </div>
+                    </fieldset>
+                </form>
+            </div>
+            <!-- /.form-container -->
+        </div>
+        <!-- /.box -->
+    </section>
+<!-- /#contact -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}

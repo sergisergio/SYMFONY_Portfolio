@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="#">
+    <title>{% block title %}Mon portfolio{% endblock %}</title>    <!-- Bootstrap core CSS -->
+    {% block stylesheets %}
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/prettify.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/green.css') }}" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,800,700,600,500,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic' rel='stylesheet' type='text/css'>
+    <link href="{{ asset('css/fontello.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/budicons.css') }}" rel="stylesheet">
+    {% endblock %}
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="style/js/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .progress{
+            border-radius:0;
+            overflow:visible;
+            border: 1px solid #9cbc68;
+            background : #000;
+        }
+        .progress-bar{
+            background-color: #9cbc68 !important;
+            -webkit-transition: width 1.5s ease-in-out !important;
+            transition: width 1.5s ease-in-out !important;
+        }
+        .tooltip{
+            position:relative;
+            float:right;
+        }
+        .tooltip > .tooltip-inner {background-color: #eebf3f; padding:3px 15px; color:rgb(23,44,66); font-weight:bold; font-size:13px;}
+        .popOver + .tooltip > .tooltip-arrow {  border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #eebf3f;}
+    </style>
+</head>
+<body class="full-layout">
+<div id="preloader"><div id="status"><div class="spinner"></div></div></div>
+<div class="body-wrapper">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header"> <a class="btn responsive-menu" data-toggle="collapse" data-target=".navbar-collapse"><i></i></a>
+            <!--<div class="navbar-brand text-center"> <a href=""><img src="" alt="" data-src="" data-ret="" class="retina" /></a> </div>-->
+            <!-- /.navbar-brand -->
+        </div>
+        <!-- /.navbar-header -->
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="current"><a href="{{ path('home') }}">Accueil</a></li>
+                <li><a href="{{ path('home') }}#portfolio">Portfolio</a></li>
+                <li><a href="{{ path('home') }}#about">A propos</a></li>
+                <li><a href="{{ path('home') }}#skills">Compétences</a></li>
+                <li><a href="{{ path('home') }}#contact">Contact</a></li>
+                <li><a href="{{ path('blog') }}">Blog</a></li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                {% else %}
+                    <li><a href="{{ path('signup') }}">Inscription</a></li>
+                    <li><a href="{{ path('login') }}">Connexion</a></li>
+                {% endif %}
+                <!--<li><a href="elements.html">Elements</a></li>-->
+                <!--<li><a href="#elsewhere" class="fancybox-inline" data-fancybox-width="325" data-fancybox-height="220"><i class="icon-heart-1"></i><span>Elsewhere</span></a></li>-->
+            </ul>
+            <!-- /.navbar-nav -->
+        </div>
+        <!-- /.navbar-collapse -->
+        <div id="elsewhere" style="display:none;">
+            <h1>Me, Elsewhere</h1>
+            <div class="divide20"></div>
+            <ul class="social">
+                <li><a href="#"><i class="icon-s-twitter"></i></a></li>
+                <li><a href="#"><i class="icon-s-facebook"></i></a></li>
+                <li><a href="#"><i class="icon-s-instagram"></i></a></li>
+                <li><a href="#"><i class="icon-s-flickr"></i></a></li>
+                <li><a href="#"><i class="icon-s-pinterest"></i></a></li>
+                <li><a href="#"><i class="icon-s-linkedin"></i></a></li>
+            </ul>
+        </div>
+        <!-- /#elsewhere -->
+    </nav>
+    <!-- /.navbar -->
+
+    <section id="home" class="naked">
+        <div class="fullscreenbanner-container revolution">
+            <div class="fullscreenbanner">
+                <ul>
+                    <li data-transition="fade"> <img src="{{ asset('img/dummy.png') }}"  alt="slidebg1" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="repeat">
+                        <h1 class="tp-caption caption large sfb" data-x="center" data-y="center" data-voffset="-25" data-speed="900" data-start="1000" data-endspeed="100" data-easing="Sine.easeOut">Philippe Traon</h1>
+                        <div class="tp-caption small tp-fade fadeout tp-resizeme" data-x="center" data-y="center" data-voffset="25" data-speed="100"
+                             data-start="1500"
+                             data-easing="Power4.easeOut"
+                             data-splitin="chars"
+                             data-splitout="chars"
+                             data-elementdelay="0.03"
+                             data-endelementdelay="0"
+                             data-endspeed="100"
+                             data-endeasing="Power1.easeOut"
+                             style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;">Développeur web</div>
+                        <div class="arrow smooth"><a href="#portfolio"><i class="icon-down-open-big"></i></a></div>
+                    </li>
+                </ul>
+                <div class="tp-bannertimer"></div>
+            </div>
+            <!-- /.fullscreenbanner -->
+        </div>
+        <!-- /.revolution -->
+    </section>
+    <!-- /#home -->
+
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+
+        <footer class="footer box">
+            <!--<p class="pull-left">© 2015 Lumos. All rights reserved. Theme by <a href="http://elemisfreebies.com">elemis</a>.</p>-->
+            <ul class="social pull-right">
+                <li><a href="https://fr.pinterest.com/ptraon/" target="_blank"><i class="icon-s-pinterest"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/philippe-traon-2031ab118/" target="_blank"><i class="icon-s-linkedin"></i></a></li>
+                <li><a href="https://github.com/sergisergio" target="_blank"><i class="fa fa-github"></i></a></li>
+                <li><a href="https://www.youtube.com/channel/UCNSAyQeQ132taTopmXCKSvQ/playlists" target="_blank"><i class="icon-s-youtube"></i></a></li>
+                <li style="color: green;"><a href="https://www.freecodecamp.com/sergisergio" target="_blank"> <i class="fa fa-free-code-camp" style="color: green;"></i></a></li>
+                <li><a href="https://codepen.io/sergisergio/#" target="_blank"> <i class="fa fa-codepen"></i></a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer -->
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.body-wrapper -->
+{% block javascripts %}
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/jquery.themepunch.tools.min.js') }}"></script>
+<script src="{{ asset('js/classie.js') }}"></script>
+<script src="{{ asset('js/plugins.js') }}"></script>
+<script src="{{ asset('js/scripts.js') }}"></script>
+<script>
+    $.backstretch(["{{ asset('img/react2.png') }}"]);
+</script>
+    <script>
+        $( window ).scroll(function() {
+            if($( window ).scrollTop() > 2600){  // scroll down abit and get the action
+                $(".progress-bar").each(function(){
+                    each_bar_width = $(this).attr('aria-valuenow');
+                    $(this).width(each_bar_width + '%');
+                });
+            }
+        });
+    </script>
+{% endblock %}
+</body>
+</html>
