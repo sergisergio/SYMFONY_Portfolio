@@ -383,7 +383,7 @@ jQuery(document).ready(function() {
 
         // set loading status
         oMsg = me.text();
-        me.text('LOADING...');
+        me.text('EN COURS...');
 
         // perform ajax request
         $.ajax({
@@ -409,7 +409,7 @@ jQuery(document).ready(function() {
                     });
 
                     if (itemsNext.length === 0) {
-                        me.text('NO MORE WORKS');
+                        me.text('A VENIR');
                         me.addClass('cbp-l-loadMore-button-stop');
                     }
 

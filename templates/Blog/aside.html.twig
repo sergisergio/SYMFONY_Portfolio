@@ -1,0 +1,99 @@
+<aside class="col-md-4 col-sm-12 sidebar">
+    <div class="sidebox box widget">
+        <h3 class="widget-title section-title">Affichage</h3>
+        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem.</p>
+        <ul class="layout-switcher">
+            <li><a href="{{ path('blog') }}" class="btn btn-small hint--top active" data-hint="List View"><i class="icon-menu-1"></i></a></li>
+            <li><a href="{{ path('blog2') }}" class="btn btn-small hint--top" data-hint="Grid View"><i class="icon-th-large"></i></a></li>
+            <li><a href="{{ path('blog3') }}" class="btn btn-small hint--top" data-hint="Classic View"><i class="icon-stop-1"></i></a></li>
+        </ul>
+    </div>
+    <!-- /.widget -->
+
+    <div class="sidebox box widget">
+        <form class="searchform" method="get">
+            <input type="text" id="s2" name="s" value="type and hit enter" onfocus="this.value=''" onblur="this.value='type and hit enter'"/>
+        </form>
+    </div>
+    <!-- /.widget -->
+
+    <div class="sidebox box widget">
+        <h3 class="widget-title section-title">Popular Posts</h3>
+        <ul class="post-list">
+            <li>
+                <figure class="frame pull-left">
+                    <div class="icon-overlay"><a href="blog-post.html"><img src="style/images/art/a1.jpg" alt="" /> </a></div>
+                </figure>
+                <div class="meta"> <em><span class="date">3 Oct 2012</span><span class="comments"><a href="#">8 <i class="icon-chat-1"></i></a></span></em>
+                    <h5><a href="blog-post.html">Magna Mollis Ultricies</a></h5>
+                </div>
+            </li>
+            <li>
+                <figure class="frame pull-left">
+                    <div class="icon-overlay"><a href="blog-post.html"><img src="style/images/art/a2.jpg" alt="" /> </a></div>
+                </figure>
+                <div class="meta"> <em><span class="date">28 Sep 2012</span><span class="comments"><a href="#">5 <i class="icon-chat-1"></i></a></span></em>
+                    <h5><a href="blog-post.html">Ornare Nullam Risus</a></h5>
+                </div>
+            </li>
+            <li>
+                <figure class="frame pull-left">
+                    <div class="icon-overlay"><a href="blog-post.html"><img src="style/images/art/a3.jpg" alt="" /> </a></div>
+                </figure>
+                <div class="meta"> <em><span class="date">15 Aug 2012</span><span class="comments"><a href="#">9 <i class="icon-chat-1"></i></a></span></em>
+                    <h5><a href="blog-post.html">Euismod Nullam</a></h5>
+                </div>
+            </li>
+        </ul>
+        <!-- /.post-list -->
+    </div>
+    <!-- /.widget -->
+
+    <div class="sidebox box widget">
+        <h3 class="widget-title section-title">Elsewhere</h3>
+        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Integer posuere erat a ante venenatis dapibus.</p>
+        <ul class="social">
+            <li><a href="#"><i class="icon-s-rss"></i></a></li>
+            <li><a href="#"><i class="icon-s-twitter"></i></a></li>
+            <li><a href="#"><i class="icon-s-facebook"></i></a></li>
+            <li><a href="#"><i class="icon-s-pinterest"></i></a></li>
+            <li><a href="#"><i class="icon-s-linkedin"></i></a></li>
+            <li><a href="#"><i class="icon-s-dribbble"></i></a></li>
+            <li><a href="#"><i class="icon-s-flickr"></i></a></li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <!-- /.widget -->
+
+    <div class="sidebox box widget">
+        <h3 class="widget-title section-title">Categories</h3>
+        <ul class="circled">
+            {% for category in categories %}
+            <li><a href="#">{{ category.name }} (21)</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- /.widget -->
+
+    <div class="sidebox box widget">
+        <h3 class="widget-title section-title">Tags</h3>
+        <ul class="tag-list">
+            <li><a href="#" class="btn">Web</a></li>
+            <li><a href="#" class="btn">Photography</a></li>
+            <li><a href="#" class="btn">Illustation</a></li>
+            <li><a href="#" class="btn">Fun</a></li>
+            <li><a href="#" class="btn">Blog</a></li>
+            <li><a href="#" class="btn">Design</a></li>
+            <li><a href="#" class="btn">Inspiration</a></li>
+            <li><a href="#" class="btn">Tips</a></li>
+            <li><a href="#" class="btn">Manipulation</a></li>
+            <li><a href="#" class="btn">Graphic</a></li>
+            <li><a href="#" class="btn">Travel</a></li>
+            <li><a href="#" class="btn">Concept</a></li>
+        </ul>
+        <!-- /.tag-list -->
+    </div>
+    <!-- /.widget -->
+
+</aside>
+<!-- /column .sidebar -->

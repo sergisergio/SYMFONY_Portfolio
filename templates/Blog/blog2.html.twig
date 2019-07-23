@@ -1,0 +1,59 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="container inner">
+        <div class="blog grid-view row">
+            <div class="col-md-8 col-sm-12 content">
+                <div class="blog-posts">
+                    {% for post in posts %}
+                    <div class="isotope row">
+                        <div class="col-md-6 col-sm-12 post-grid">
+                            <div class="post box">
+                                <figure class="frame main"><a href="blog-post.html">
+                                        <div class="text-overlay">
+                                            <div class="info"><span>Read More</span></div>
+                                        </div>
+                                        <img src="style/images/art/b2-1.jpg" alt="" /></a></figure>
+                                <div class="meta"><span class="category">Journal</span><span class="date">13 Nov 2012</span><span class="comments"><a href="#">8 <i class="icon-chat-1"></i></a></span></div>
+                                <h2 class="post-title"><a href="blog-post.html">{{ post.title }}</a></h2>
+                                <p>Aenean leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Curabitur blandit tempus porttitor.</p>
+                            </div>
+                            <!-- /.post -->
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- /.isotope -->
+                </div>
+                <!-- /.blog-posts -->
+
+                <div class="pagination box">
+                    <ul>
+                        <li><a href="#" class="btn">Prev</a></li>
+                        <li class="active"><a href="#" class="btn"><span>1</span></a></li>
+                        <li><a href="#" class="btn"><span>2</span></a></li>
+                        <li><a href="#" class="btn"><span>3</span></a></li>
+                        <li><a href="#" class="btn">Next</a></li>
+                    </ul>
+                </div>
+                <!-- /.pagination -->
+
+            </div>
+            <!-- /.content -->
+
+            {{ include('Blog/aside.html.twig') }}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

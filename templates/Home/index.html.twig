@@ -6,6 +6,31 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <style>
+        .progress{
+            border-radius:0;
+            overflow:visible;
+            border: 1px solid #9cbc68;
+            background : #000;
+        }
+        .progress-bar{
+            background-color: #9cbc68 !important;
+            -webkit-transition: width 1.5s ease-in-out !important;
+            transition: width 1.5s ease-in-out !important;
+        }
+        .tooltip{
+            position:relative;
+            float:right;
+        }
+        .tooltip > .tooltip-inner {
+            background-color: #eebf3f;
+            padding:3px 15px;
+            color:rgb(23,44,66);
+            font-weight:bold;
+            font-size:13px;
+        }
+        .popOver + .tooltip > .tooltip-arrow {  border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #eebf3f;}
+    </style>
 {% endblock %}
 {% block body %}
 
@@ -14,8 +39,8 @@
         <h2 class="section-title pull-left">Projets</h2>
         <div id="filters-container" class="cbp-l-filters-alignRight pull-right">
             <div data-filter="*" class="cbp-filter-item-custom-active cbp-filter-item-custom btn">Tous</div>
-            {% for filter in filters %}
-                <div data-filter=".{{ filter.name }}" class="cbp-filter-item-custom btn">{{ filter.name }}</div>
+            {% for category in categories %}
+                <div data-filter=".{{ category.name }}" class="cbp-filter-item-custom btn">{{ category.name }}</div>
             {% endfor %}
         </div>
         <!-- /#filters-container -->
@@ -24,7 +49,7 @@
             <ul>
                 {% for project in projects %}
 
-                <li class="cbp-item frame architecture">
+                <li class="cbp-item frame {% for category in project.categories %}{{ category.name }}{% endfor %}">
                     <a class="cbp-caption cbp-singlePage" href="{{ path('project', {id: project.id}) }}">
                         <div class="cbp-caption-defaultWrap"> <img src="img/projets/{{ project.image.url }}" alt="" style="{{ project.image.style }}"> </div>
                         <div class="cbp-caption-activeWrap">
@@ -40,7 +65,7 @@
             </ul>
         </div>
         <!-- /.cbp-l-grid-masonry -->
-        <div class="cbp-l-loadMore-button"> <a href="{{ path('more') }}" class="cbp-l-loadMore-button-link btn">Voir plus</a> </div>
+        <!--<div class="cbp-l-loadMore-button"> <a href="#" class="cbp-l-loadMore-button-link btn">Voir plus</a> </div>-->
     </div>
     <!-- /.box -->
 </section>
@@ -90,6 +115,10 @@
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.level }}" aria-valuemin="0" aria-valuemax="100" >
                                 <span  class="popOver" data-toggle="tooltip" data-placement="top" title="{{ skill.level }}%"> </span>
+                                <div class="tooltip fade top in" role="tooltip" id="tooltip653262" style="top: -34px; left: 28.0312px; display: block;">
+                                    <div class="tooltip-arrow" style="left: 50%;"></div>
+                                    <div class="tooltip-inner">{{ skill.level }}%</div>
+                                </div>
                             </div>
                         </div>
                     </div>

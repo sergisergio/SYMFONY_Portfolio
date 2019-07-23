@@ -6,9 +6,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Cet Email est déjà pris"
+ * )
+ * @UniqueEntity(
+ *     fields={"username"},
+ *     message="Ce pseudo est déjà pris"
+ * )
  */
 class User implements UserInterface
 {
@@ -30,10 +41,21 @@ class User implements UserInterface
     private $roles = [];
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimum 8 caractères", max=4096)
+     */
+    private $plainPassword;
+
+    /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     */
+    private $username;
 
     public function __construct()
     {
@@ -102,6 +124,14 @@ class User implements UserInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
      * @see UserInterface
      */
     public function getSalt()
@@ -116,5 +146,22 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     * @return User
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
     }
 }

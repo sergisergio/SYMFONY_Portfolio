@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Projects;
 use App\Entity\Skill;
 use App\Entity\User;
@@ -29,17 +30,12 @@ class HomeController extends AbstractController
     public function home()
     {
         $skills = $this->em->getRepository(Skill::class)->findAll();
-
         $projects = $this->em->getRepository(Projects::class)->findAll();
-
-        $filters = [
-            [ 'name' => 'PHP'],
-            [ 'name' => 'Javascript']
-        ];
+        $categories = $this->em->getRepository(Category::class)->findAll();
         return $this->render('Home/index.html.twig', [
             'projects' => $projects,
             'skills' => $skills,
-            'filters' => $filters
+            'categories' => $categories
         ]);
     }
 
@@ -68,6 +64,7 @@ class HomeController extends AbstractController
     public function more()
     {
         $projects = $this->em->getRepository(Projects::class)->findAll();
+        dd($projects);
 
         return $this->render('Home/more.html.twig', [
             'projects' => $projects

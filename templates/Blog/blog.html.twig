@@ -1,0 +1,66 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="container inner">
+        <div class="blog list-view row">
+            <div class="col-md-8 col-sm-12 content">
+                <div class="blog-posts">
+                    {% for post in posts %}
+                    <div class="post box">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <figure class="frame"><a href="blog-post.html">
+                                        <div class="text-overlay">
+                                            <div class="info"><span>Voir plus</span></div>
+                                        </div>
+                                        <img src="img/b1-1.jpg" alt="" /></a></figure>
+                            </div>
+                            <!-- /column -->
+                            <div class="col-sm-7 post-content">
+                                <div class="meta"><span class="category">Journal</span><span class="date">13 Nov 2012</span><span class="comments"><a href="#">8 <i class="icon-chat-1"></i></a></span></div>
+                                <h2 class="post-title"><a href="{{ path('view') }}">{{ post.title }}</a></h2>
+                                <p>Aenean leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Curabitur blandit tempus porttitor. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                            </div>
+                            <!-- /column -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- /.blog-posts -->
+
+                <div class="pagination box">
+                    <ul>
+                        <li><a href="#" class="btn">Prev</a></li>
+                        <li class="active"><a href="#" class="btn"><span>1</span></a></li>
+                        <li><a href="#" class="btn"><span>2</span></a></li>
+                        <li><a href="#" class="btn"><span>3</span></a></li>
+                        <li><a href="#" class="btn">Next</a></li>
+                    </ul>
+                </div>
+                <!-- /.pagination -->
+
+            </div>
+            <!-- /.content -->
+
+            {{ include('Blog/aside.html.twig') }}
+
+
+
+
+        </div>
+        <!-- /.blog -->
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
