@@ -53,9 +53,24 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @Assert\EqualTo(propertyPath="password", message="La confirmation et le mot de passe ne correspondent pas !")
+     */
+    private $passwordConfirm;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true, unique=true)
      */
     private $username;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $token;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $active;
 
     public function __construct()
     {
@@ -163,5 +178,53 @@ class User implements UserInterface
     {
         $this->plainPassword = $plainPassword;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token): void
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param mixed $active
+     */
+    public function setActive($active): void
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPasswordConfirm()
+    {
+        return $this->passwordConfirm;
+    }
+
+    /**
+     * @param mixed $passwordConfirm
+     */
+    public function setPasswordConfirm($passwordConfirm): void
+    {
+        $this->passwordConfirm = $passwordConfirm;
     }
 }

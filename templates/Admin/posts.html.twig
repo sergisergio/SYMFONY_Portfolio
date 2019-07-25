@@ -1,0 +1,49 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="container inner">
+        <section>
+            <div class="box">
+                <h1>Posts</h1>
+                <a href="{{ path('post_add') }}" class="btn btn-blue pull-right">Ajouter un article</a>
+                <table class="table table-dark table-hover">
+                    <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for post in posts %}
+                    <tr>
+                        <td>{{ post.title }}</td>
+                        <td>Doe</td>
+                        <td>john@example.com</td>
+                        <td>
+                            <a href="#"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                            <a href="{{ path('post_edit', { id: post.id }) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                            <a href="{{ path('post_delete', { id: post.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

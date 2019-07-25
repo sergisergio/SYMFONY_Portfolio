@@ -19,7 +19,7 @@
                                     <label>Pseudo ou Email</label>
                                     <input type="text" name="_username" value="{{ last_username }}" placeholder="Email" class="text-input defaultText required"/> </div>
                                 <div class="form-row text-input-row subject-field">
-                                    <label>Mot de passe</label><a class="pull-right" href="#"> (Mot de passe oublié ?)</a>
+                                    <label>Mot de passe</label><a class="pull-right" href="{{ path('forgot') }}"> (Mot de passe oublié ?)</a>
                                     <input type="password" name="_password" class="text-input defaultText" placeholder="Mot de passe" /> </div>
                             </div>
                             <div class="col-sm-6 col-xs-6">

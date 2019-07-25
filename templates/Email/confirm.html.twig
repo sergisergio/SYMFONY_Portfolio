@@ -1,0 +1,6 @@
+<p>
+    Bonjour {{ user.username }}, merci pour votre inscription !<br>
+    Pour valider votre compte, veuillez valider votre email en cliquant sur le lien ci-dessous :<br>
+    <a href="{{ url('confirmation', {email: user.email , token: user.token}) }}">Activer mon compte<a><br><br>
+            Merci !
+</p>

@@ -49,7 +49,7 @@
             <ul>
                 {% for project in projects %}
 
-                <li class="cbp-item frame {% for category in project.categories %}{{ category.name }}{% endfor %}">
+                <li class="cbp-item frame {% for category in project.categories %}{{ category.name }} {% endfor %}">
                     <a class="cbp-caption cbp-singlePage" href="{{ path('project', {id: project.id}) }}">
                         <div class="cbp-caption-defaultWrap"> <img src="img/projets/{{ project.image.url }}" alt="" style="{{ project.image.style }}"> </div>
                         <div class="cbp-caption-activeWrap">
@@ -65,7 +65,7 @@
             </ul>
         </div>
         <!-- /.cbp-l-grid-masonry -->
-        <!--<div class="cbp-l-loadMore-button"> <a href="#" class="cbp-l-loadMore-button-link btn">Voir plus</a> </div>-->
+        <!--<div class="cbp-l-loadMore-button"> <a href="{{ path('more') }}" class="cbp-l-loadMore-button-link btn">Voir plus</a> </div>-->
     </div>
     <!-- /.box -->
 </section>
@@ -193,43 +193,43 @@
             <div class="divide30"></div>
             <div class="form-container">
                 <div class="response alert alert-success"></div>
-                <form class="forms" action="{{ path('contact') }}" method="post">
-                    <fieldset>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-row text-input-row name-field">
-                                    <label>Nom</label>
-                                    <input type="text" name="name" class="text-input defaultText required defaultTextActive"> </div>
-                                <div class="form-row text-input-row email-field">
-                                    <label>Email</label>
-                                    <input type="text" name="email" class="text-input defaultText required email defaultTextActive"> </div>
-                                <div class="form-row text-input-row subject-field">
-                                    <label>Objet</label>
-                                    <input type="text" name="subject" class="text-input defaultText defaultTextActive"> </div>
+                {{ form_start(form) }}
+                <fieldset>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-row text-input-row name-field">
+                                {{ form_row(form.name, { 'label': 'Nom'}) }}
                             </div>
-                            <div class="col-md-6 col-sm-12 lp5">
-                                <div class="form-row text-area-row">
-                                    <label>Message</label>
-                                    <textarea name="message" class="text-area required"></textarea>
-                                </div>
-                                <div class="form-row hidden-row">
-                                    <input type="hidden" name="hidden" value=""> </div>
-                                <div class="nocomment" style="display: none;">
-                                    <label for="nocomment">Laisser le champ libre</label>
-                                    <input id="nocomment" value="" name="nocomment"> </div>
+                            <div class="form-row text-input-row email-field">
+                                {{ form_row(form.from, { 'label': 'Email'}) }}
                             </div>
-                            <div class="col-sm-6">
-                                <div class="button-row pull-right">
-                                    <input type="submit" value="Envoyer" name="submit" class="btn btn-submit bm0"> </div>
+                            <div class="form-row text-input-row subject-field">
+                                {{ form_row(form.subject, { 'label': 'Objet'}) }}
                             </div>
-                            <div class="col-sm-6 lp5">
-                                <div class="button-row pull-left">
-                                    <input type="reset" value="Effacer" name="reset" class="btn btn-submit bm0"> </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 lp5">
+                            <div class="form-row text-area-row">
+                                {{ form_row(form.message, { 'label': 'Message'}) }}
                             </div>
-                            <input type="hidden" name="v_error" id="v-error" value="Required">
-                            <input type="hidden" name="v_email" id="v-email" value="Enter a valid email"> </div>
-                    </fieldset>
-                </form>
+                            <div class="form-row hidden-row">
+                                <input type="hidden" name="hidden" value=""> </div>
+                            <div class="nocomment" style="display: none;">
+                                <label for="nocomment">Laisser le champ libre</label>
+                                <input id="nocomment" value="" name="nocomment"> </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="button-row pull-right">
+                                <input type="submit" value="Envoyer" name="submit" class="btn btn-submit bm0"> </div>
+                        </div>
+                        <div class="col-sm-6 lp5">
+                            <div class="button-row pull-left">
+                                <input type="reset" value="Effacer" name="reset" class="btn btn-submit bm0"> </div>
+                        </div>
+                        <input type="hidden" name="v_error" id="v-error" value="Required">
+                        <input type="hidden" name="v_email" id="v-email" value="Enter a valid email"> </div>
+                    </div>
+                </fieldset>
+                {{ form_end(form) }}
             </div>
             <!-- /.form-container -->
         </div>

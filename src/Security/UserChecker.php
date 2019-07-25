@@ -3,7 +3,6 @@
 
 namespace App\Security;
 
-
 use App\Entity\User;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Symfony\Component\Security\Core\Exception\AccountExpiredException;
@@ -28,8 +27,10 @@ class UserChecker implements UserCheckerInterface
         }
 
         // user account is expired, the user may be notified
-        //if ($user->isExpired()) {
-        //    throw new AccountExpiredException('...');
-        //}
+        if (!$user->getActive()) {
+            throw new AccountExpiredException('...');
+        }
+
+
     }
 }
