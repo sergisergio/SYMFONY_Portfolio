@@ -1,0 +1,63 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="container inner">
+        <section>
+            <div class="box">
+                <h1 class="text-center">Projets</h1>
+                    <div class="count">
+                        <h3>{{ pagination.getTotalItemCount }} projets</h3>
+                    </div>
+                <a href="{{ path('project_add') }}" class="btn btn-green pull-right">Ajouter un projet</a>
+                <table class="table table-dark table-hover">
+                    <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Lien</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for project in pagination %}
+                    <tr>
+                        <td>{{ project.title  | raw | upper }}</td>
+                        <td>{{ project.description | slice(0,20) | raw }}...</td>
+                        <td>{{ project.link }}</td>
+                        <td>
+                            <a href="#"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                            <a href="{{ path('project_edit', { id: project.id }) }}" class="hint--top" data-hint="Modifier">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                            </a>
+                            <a href="{{ path('project_delete', { id: project.id }) }}"
+                               onclick="return confirm('Confirmation?');" class="hint--top" data-hint="Supprimer">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+
+                <div class="pagination box">
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

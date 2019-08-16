@@ -1,0 +1,67 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="container inner">
+        <section>
+            <div class="box">
+                <h1 class="text-center">Tâches</h1>
+                <div class="count">
+                    <h3>{{ pagination.getTotalItemCount }} tâches</h3>
+                </div>
+                <a href="{{ path('task_add') }}" class="btn btn-green pull-right">Ajouter une tâche</a>
+                <table class="table table-dark table-hover">
+                    <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Contenu</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for task in pagination %}
+                    <tr>
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.content | slice(0, 60) | raw }}</td>
+                        <td>
+                            <a href="{{ path('task_toggle', {'id' : task.id}) }}">
+                                {% if task.isDone %}<span class="fa fa-check-square-o" style="color: green;font-size:1.5em;"></span>
+                                {% else %}<span class="fa fa-square-o" style="color: red;font-size:1.5em;"></span>
+                                {% endif %}
+                            </a></td>
+                        <td>
+                            <a href="#"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                            <a href="{{ path('task_edit', { id: task.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                            <a href="{{ path('task_delete', { id: task.id}) }}"
+                               onclick="return confirm('Confirmation?');">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                    {% endfor %}
+                </table>
+
+                <div class="pagination box">
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

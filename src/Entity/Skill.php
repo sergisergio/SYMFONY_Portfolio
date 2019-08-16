@@ -26,6 +26,11 @@ class Skill
      */
     private $level;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="skills")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Skill
     public function setLevel(?int $level): self
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

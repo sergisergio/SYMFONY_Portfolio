@@ -14,6 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Controller gérant la page d'accueil
+ * @package App\Controller
+ */
 class HomeController extends AbstractController
 {
     /**
@@ -26,14 +30,22 @@ class HomeController extends AbstractController
 
         $this->em = $em;
     }
+
     /**
+     * Permet d'afficher la page d'accueil
+     *
      * @Route("/", name="home")
+     *
+     * @param Request $request
+     * @param \Swift_Mailer $mailer
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function home(Request $request, \Swift_Mailer $mailer)
     {
-        $skills = $this->em->getRepository(Skill::class)->findAll();
+
         $projects = $this->em->getRepository(Projects::class)->findAll();
         $categories = $this->em->getRepository(Category::class)->findAll();
+        $user = $this->em->getRepository(User::class)->findOneByUsername(['username' => 'philippe']);
 
         $form = $this->createForm(ContactType::class);
 
@@ -45,12 +57,14 @@ class HomeController extends AbstractController
             $message = (new \Swift_Message('You Got Mail!'))
                 ->setFrom($FormData['from'])
                 ->setTo('ptraon@gmail.com')
-                ->setBody($this->renderView('Email/contact.html.twig', [
+                ->setBody(
+                    $this->renderView('Email/contact.html.twig', [
                     'auteur' => $FormData['from'],
                     'message' => $FormData['message'],
                     'ip' => $ip
-                ]),
-                    'text/html')
+                    ]),
+                    'text/html'
+                )
             ;
 
             $this->addFlash(
@@ -65,14 +79,20 @@ class HomeController extends AbstractController
 
         return $this->render('Home/index.html.twig', [
             'projects' => $projects,
-            'skills' => $skills,
+            //'skills' => $skills,
             'categories' => $categories,
+            'user' => $user,
             'form' => $form->createView(),
         ]);
     }
 
     /**
+     * Permet d'afficher un projet en particulier
+     *
      * @Route("/{id}/project", name="project")
+     *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function project($id)
     {
@@ -90,7 +110,11 @@ class HomeController extends AbstractController
     }
 
     /**
+     * Permet de dérouler la liste des projets
+     *
      * @Route("more", name="more")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function more()
     {

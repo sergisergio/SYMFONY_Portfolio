@@ -41,7 +41,16 @@
                 <li><a href="{{ path('home') }}#contact">Contact</a></li>
                 <li><a href="{{ path('blog') }}">Blog</a></li>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon compte <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('admin') }}">Administrateur</a></li>
+                            {% endif %}
+                            <li><a href="{{ path('account', {id: user.id}) }}">Mon profil</a></li>
+                            <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                        </ul>
+                    </li>
                 {% else %}
                     <li><a href="{{ path('signup') }}">Inscription</a></li>
                     <li><a href="{{ path('login') }}">Connexion</a></li>

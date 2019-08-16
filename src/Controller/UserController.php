@@ -27,26 +27,36 @@ use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Ce controller permet de s'enregistrer, se connecter, se déconnecter et modifier son mot de passe
+ *
+ */
 class UserController extends AbstractController
 {
     /**
      * Permet de s'inscrire
      *
      * @Route("/signup", name="signup")
+     *
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @param UserPasswordEncoderInterface $encoder
+     * @param \Swift_Mailer $mailer
+     * @param TokenGeneratorInterface $generator
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function signup(Request $request,
-                           ObjectManager $manager,
-                           UserPasswordEncoderInterface $encoder,
-                           \Swift_Mailer $mailer,
-                           TokenGeneratorInterface $generator
-    )
-    {
+    public function signup(
+        Request $request,
+        ObjectManager $manager,
+        UserPasswordEncoderInterface $encoder,
+        \Swift_Mailer $mailer,
+        TokenGeneratorInterface $generator
+    ) {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $token = $generator->generateToken();
             $hash = $encoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($hash);
@@ -82,6 +92,11 @@ class UserController extends AbstractController
      * Permet de valider l'inscription dans le mail reçu
      *
      * @Route("/confirmation/{email}/{token}", name="confirmation")
+     *
+     * @param $email
+     * @param $token
+     * @param ObjectManager $manager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function confirm($email, $token, ObjectManager $manager)
     {
@@ -101,8 +116,7 @@ class UserController extends AbstractController
                 'success',
                 "Votre compte a été activé avec succès ! Vous pouvez désormais vous connecter !"
             );
-        }
-        else {
+        } else {
             $this->addFlash(
                 'danger',
                 "La validation de votre compte a échoué. Le lien de validation a expiré !"
@@ -116,13 +130,21 @@ class UserController extends AbstractController
      * Permet d'envoyer un lien afin de réinitialiser le mot de passe si celui-ci est oublié
      *
      * @Route("/forgot", name="forgot")
+     *
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @param UserRepository $repo
+     * @param \Swift_Mailer $mailer
+     * @param TokenGeneratorInterface $generator
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function forgot(Request $request,
-                          ObjectManager $manager,
-                          UserRepository $repo,
-                          \Swift_Mailer $mailer,
-                          TokenGeneratorInterface $generator)
-    {
+    public function forgot(
+        Request $request,
+        ObjectManager $manager,
+        UserRepository $repo,
+        \Swift_Mailer $mailer,
+        TokenGeneratorInterface $generator
+    ) {
         $form = $this->createForm(ForgottenPasswordType::class);
 
         $form->handleRequest($request);
@@ -131,8 +153,7 @@ class UserController extends AbstractController
             $email = $form->getData();
             $user = $repo->findOneByEmail($email->getEmail());
 
-            if ($user !== null)
-            {
+            if ($user !== null) {
                 $token = $generator->generateToken();
                 $user->setToken($token);
                 $manager->persist($user);
@@ -151,10 +172,8 @@ class UserController extends AbstractController
                     'info',
                     'Un mail de réinitilisation de mot de passe vous a été envoyé, cliquez sur le lien pour le réinitialiser.'
                 );
-
             }
             return $this->redirectToRoute('login');
-
         }
         return $this->render(
             'User/forgot.html.twig',
@@ -168,14 +187,21 @@ class UserController extends AbstractController
      * Permet de réinitialiser le mot de passe
      *
      * @Route("/reset/{email}/{token}", name="reset")
+     *
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @param ObjectManager $manager
+     * @param $email
+     * @param $token
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function reset(Request $request,
-                          UserPasswordEncoderInterface $encoder,
-                          ObjectManager $manager,
-                          $email,
-                          $token
-    )
-    {
+    public function reset(
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        ObjectManager $manager,
+        $email,
+        $token
+    ) {
         $token = $request->get('token');
         if (!$token) {
             return new Response(new InvalidCsrfTokenException());
@@ -190,10 +216,8 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            if ($user->getToken() === $token)
-            {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($user->getToken() === $token) {
                 $password = $form->getData();
                 $hash = $encoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($hash);
@@ -246,5 +270,7 @@ class UserController extends AbstractController
      *
      * @Route("/logout", name="logout")
      */
-    public function logout() {}
+    public function logout()
+    {
+    }
 }

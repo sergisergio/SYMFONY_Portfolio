@@ -1,0 +1,59 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="container inner">
+        <section>
+            <div class="box">
+                <h1 class="text-center">Compétences</h1>
+                <div class="count">
+                    <h3>{{ pagination.getTotalItemCount }} compétences</h3>
+                </div>
+                <a href="{{ path('skill_add') }}" class="btn btn-green pull-right">Ajouter une compétence</a>
+                <table class="table table-dark table-hover">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Titre</th>
+                        <th>Niveau</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for skill in pagination %}
+                    <tr>
+                        <td>{{ loop.index }}.</td>
+                        <td>{{ skill.name  | raw | upper }}</td>
+                        <td>{{ skill.level | raw }}%</td>
+                        <td>
+                            <a href="#"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                            <a href="{{ path('skill_edit', { id: skill.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                            <a href="{{ path('skill_delete', { id: skill.id}) }}"
+                               onclick="return confirm('Confirmation?');">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+                <div class="pagination box">
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

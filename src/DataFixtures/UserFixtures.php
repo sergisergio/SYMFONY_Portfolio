@@ -7,6 +7,10 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * Classe permettant de lancer 2 utilisateurs
+ * @package App\DataFixtures
+ */
 class UserFixtures extends Fixture
 {
     private $passwordEncoder;
@@ -21,13 +25,13 @@ class UserFixtures extends Fixture
     {
         $user = new User();
         $user->setEmail('user@user.fr');
-        $user->setPassword($this->passwordEncoder->encodePassword($user,'user'));
+        $user->setPassword($this->passwordEncoder->encodePassword($user, 'user'));
         $user->setRoles(['ROLE_USER']);
         $manager->persist($user);
 
         $admin = new User();
         $admin->setEmail('admin@admin.fr');
-        $admin->setPassword($this->passwordEncoder->encodePassword($admin,'admin'));
+        $admin->setPassword($this->passwordEncoder->encodePassword($admin, 'admin'));
         $admin->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
 

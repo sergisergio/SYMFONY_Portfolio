@@ -18,6 +18,18 @@
         <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic' rel='stylesheet' type='text/css'>
         <link href="{{ asset('css/fontello.css') }}" rel="stylesheet">
         <link href="{{ asset('css/budicons.css') }}" rel="stylesheet">
+        <style>
+            #notifications {
+                cursor: pointer;
+                position: fixed;
+                right: 0px;
+                z-index: 9999;
+                bottom: 0px;
+                margin-bottom: 22px;
+                margin-right: 15px;
+                max-width: 300px;
+            }
+        </style>
 
     {% endblock %}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -27,7 +39,9 @@
     <![endif]-->
 </head>
 <body class="full-layout">
-<div id="preloader"><div id="status"><div class="spinner"></div></div></div>
+<!--<div id="preloader"><div id="status"><div class="spinner"></div></div></div>-->
+<div id="notifications"></div>
+
 <div class="body-wrapper">
     <nav class="navbar navbar-default" role="navigation">
         <div class="navbar-header"> <a class="btn responsive-menu" data-toggle="collapse" data-target=".navbar-collapse"><i></i></a>
@@ -44,7 +58,16 @@
                 <li><a href="{{ path('home') }}#contact">Contact</a></li>
                 <li><a href="{{ path('blog') }}">Blog</a></li>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon compte <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('admin') }}">Administrateur</a></li>
+                            {% endif %}
+                            <li><a href="{{ path('account', {id: user.id}) }}">Mon profil</a></li>
+                            <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                        </ul>
+                    </li>
                 {% else %}
                     <li><a href="{{ path('signup') }}">Inscription</a></li>
                     <li><a href="{{ path('login') }}">Connexion</a></li>
@@ -138,6 +161,23 @@
                     $(this).width(each_bar_width + '%');
                 });
             }
+        });
+    </script>
+    <script>
+        $( document ).ready(function() {
+            Notify("Can't Touch This");
+            Notify("Stop! Hammer time", null, null, 'danger');
+
+            Notify("I told you homeboy (You can't touch this)",
+                function () {
+                    alert("clicked notification")
+                },
+                function () {
+                    alert("clicked x")
+                },
+                'success'
+            );
+
         });
     </script>
 {% endblock %}

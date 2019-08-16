@@ -12,18 +12,31 @@
         <div class="blog grid-view row">
             <div class="col-md-8 col-sm-12 content">
                 <div class="blog-posts">
-                    {% for post in posts %}
+                    <div class="box" style="margin-bottom: 50px;">
+                        <div class="count">
+                            <h3>{{ pagination.getTotalItemCount }} articles</h3>
+                        </div>
+                    </div>
+                    {% for post in pagination %}
                     <div class="isotope row">
-                        <div class="col-md-6 col-sm-12 post-grid">
+                        <div class="col-md-6 col-sm-12 post-grid pull-left">
                             <div class="post box">
-                                <figure class="frame main"><a href="blog-post.html">
+                                <figure class="frame main"><a href="{{ path('view', { id: post.id }) }}">
                                         <div class="text-overlay">
-                                            <div class="info"><span>Read More</span></div>
+                                            <div class="info"><span>Voir plus</span></div>
                                         </div>
                                         <img src="style/images/art/b2-1.jpg" alt="" /></a></figure>
-                                <div class="meta"><span class="category">Journal</span><span class="date">13 Nov 2012</span><span class="comments"><a href="#">8 <i class="icon-chat-1"></i></a></span></div>
-                                <h2 class="post-title"><a href="blog-post.html">{{ post.title }}</a></h2>
-                                <p>Aenean leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Curabitur blandit tempus porttitor.</p>
+                                <div class="meta">
+                                    <span class="category">
+                                        {% for category in post.categories %}
+                                            {{ category.name }}
+                                        {% endfor %}
+                                    </span>
+                                    <span class="date">{{ post.createdAt | date('d-m-Y') }}</span>
+                                    <span class="comments"><a href="#">{{ post.comments | length }} <i class="icon-chat-1"></i></a></span>
+                                </div>
+                                <h2 class="post-title"><a href="{{ path('view', { id: post.id }) }}">{{ post.title }}</a></h2>
+                                {{ post.content | slice(0, 100) | raw }}
                             </div>
                             <!-- /.post -->
                         </div>
@@ -33,7 +46,7 @@
                 </div>
                 <!-- /.blog-posts -->
 
-                <div class="pagination box">
+                <!--<div class="pagination box">
                     <ul>
                         <li><a href="#" class="btn">Prev</a></li>
                         <li class="active"><a href="#" class="btn"><span>1</span></a></li>
@@ -42,10 +55,17 @@
                         <li><a href="#" class="btn">Next</a></li>
                     </ul>
                 </div>
-                <!-- /.pagination -->
+                 /.pagination -->
+
+                <div class="pagination box">
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
 
             </div>
             <!-- /.content -->
+
 
             {{ include('Blog/aside.html.twig') }}
 

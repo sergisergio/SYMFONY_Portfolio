@@ -30,7 +30,5 @@ class UserChecker implements UserCheckerInterface
         if (!$user->getActive()) {
             throw new AccountExpiredException('...');
         }
-
-
     }
 }

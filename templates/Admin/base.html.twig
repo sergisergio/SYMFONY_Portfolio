@@ -37,11 +37,12 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="current"><a href="{{ path('home') }}">Accueil</a></li>
-                <li class="current"><a href="#">Projets</a></li>
-                <li class="current"><a href="#">Description</a></li>
-                <li class="current"><a href="#">Compétences</a></li>
+                <li class="current"><a href="{{ path('admin_projects') }}">Projects</a></li>
+                <li class="current"><a href="{{ path('admin_skills') }}">Skills</a></li>
+                <li class="current"><a href="{{ path('admin_tasks') }}">Tasks</a></li>
+                <li class="current"><a href="{{ path('admin_users') }}">Users</a></li>
                 <li class="current"><a href="{{ path('admin_posts') }}">Posts</a></li>
-                <li class="current"><a href="#">Comments</a></li>
+                <li class="current"><a href="{{ path('admin_comments') }}">Comments</a></li>
                 <li><a href="{{ path('logout') }}">Déconnexion</a></li>
             </ul>
             <!-- /.navbar-nav -->
@@ -66,6 +67,11 @@
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script>
         $.backstretch(["{{ asset('img/react2.png') }}"]);
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 {% endblock %}
 </body>

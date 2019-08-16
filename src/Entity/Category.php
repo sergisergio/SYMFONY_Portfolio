@@ -28,9 +28,15 @@ class Category
      */
     private $projects;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Posts", inversedBy="categories")
+     */
+    private $post;
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
+        $this->post = new ArrayCollection();
     }
 
 
@@ -79,4 +85,29 @@ class Category
         return $this;
     }
 
+    /**
+     * @return Collection|Posts[]
+     */
+    public function getPost(): Collection
+    {
+        return $this->post;
+    }
+
+    public function addPost(Posts $post): self
+    {
+        if (!$this->post->contains($post)) {
+            $this->post[] = $post;
+        }
+
+        return $this;
+    }
+
+    public function removePost(Posts $post): self
+    {
+        if ($this->post->contains($post)) {
+            $this->post->removeElement($post);
+        }
+
+        return $this;
+    }
 }

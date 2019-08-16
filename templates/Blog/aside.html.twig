@@ -3,9 +3,9 @@
         <h3 class="widget-title section-title">Affichage</h3>
         <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem.</p>
         <ul class="layout-switcher">
-            <li><a href="{{ path('blog') }}" class="btn btn-small hint--top active" data-hint="List View"><i class="icon-menu-1"></i></a></li>
-            <li><a href="{{ path('blog2') }}" class="btn btn-small hint--top" data-hint="Grid View"><i class="icon-th-large"></i></a></li>
-            <li><a href="{{ path('blog3') }}" class="btn btn-small hint--top" data-hint="Classic View"><i class="icon-stop-1"></i></a></li>
+            <li><a href="{{ path('blog') }}" class="btn btn-small hint--top active" data-hint="Liste"><i class="icon-menu-1"></i></a></li>
+            <li><a href="{{ path('blog2') }}" class="btn btn-small hint--top" data-hint="Grille"><i class="icon-th-large"></i></a></li>
+            <li><a href="{{ path('blog3') }}" class="btn btn-small hint--top" data-hint="Classique"><i class="icon-stop-1"></i></a></li>
         </ul>
     </div>
     <!-- /.widget -->
@@ -50,22 +50,6 @@
     <!-- /.widget -->
 
     <div class="sidebox box widget">
-        <h3 class="widget-title section-title">Elsewhere</h3>
-        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Integer posuere erat a ante venenatis dapibus.</p>
-        <ul class="social">
-            <li><a href="#"><i class="icon-s-rss"></i></a></li>
-            <li><a href="#"><i class="icon-s-twitter"></i></a></li>
-            <li><a href="#"><i class="icon-s-facebook"></i></a></li>
-            <li><a href="#"><i class="icon-s-pinterest"></i></a></li>
-            <li><a href="#"><i class="icon-s-linkedin"></i></a></li>
-            <li><a href="#"><i class="icon-s-dribbble"></i></a></li>
-            <li><a href="#"><i class="icon-s-flickr"></i></a></li>
-        </ul>
-        <div class="clearfix"></div>
-    </div>
-    <!-- /.widget -->
-
-    <div class="sidebox box widget">
         <h3 class="widget-title section-title">Categories</h3>
         <ul class="circled">
             {% for category in categories %}
@@ -78,18 +62,9 @@
     <div class="sidebox box widget">
         <h3 class="widget-title section-title">Tags</h3>
         <ul class="tag-list">
-            <li><a href="#" class="btn">Web</a></li>
-            <li><a href="#" class="btn">Photography</a></li>
-            <li><a href="#" class="btn">Illustation</a></li>
-            <li><a href="#" class="btn">Fun</a></li>
-            <li><a href="#" class="btn">Blog</a></li>
-            <li><a href="#" class="btn">Design</a></li>
-            <li><a href="#" class="btn">Inspiration</a></li>
-            <li><a href="#" class="btn">Tips</a></li>
-            <li><a href="#" class="btn">Manipulation</a></li>
-            <li><a href="#" class="btn">Graphic</a></li>
-            <li><a href="#" class="btn">Travel</a></li>
-            <li><a href="#" class="btn">Concept</a></li>
+            {% for tag in tags %}
+            <li><a href="#" class="btn">{{ tag.name }}</a></li>
+            {% endfor %}
         </ul>
         <!-- /.tag-list -->
     </div>

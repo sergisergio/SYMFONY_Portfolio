@@ -1,0 +1,59 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="container inner">
+        <section>
+            <div class="box">
+                <h1>Commentaires</h1>
+                <div class="count">
+                    <h3>{{ pagination.getTotalItemCount }} commentaires</h3>
+                </div>
+                <table class="table table-dark table-hover">
+                    <thead>
+                    <tr>
+                        <th>Titre de l'article</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for comment in pagination %}
+                    <tr>
+                        <td>{{ comment.post.title }}</td>
+                        <td>{{ comment.content | slice(0,20) | raw }}</td>
+                        <td>{{ comment.publishedAt | date('d-m-Y') }}</td>
+                        <td>{{ comment.validated ? 'validé' : 'non validé' }}</td>
+                        <td>
+                            <a href="{{ path('comment_toggle', { id: comment.id}) }}"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                            <a href="{{ path('comment_delete', { id: comment.id}) }}"
+                               onclick="return confirm('Confirmation?');">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+                <div class="pagination box">
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

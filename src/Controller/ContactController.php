@@ -12,6 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Controller\SMTPClient;
 
+/**
+ * Controller gérant le formulaire de contact
+ * @package App\Controller
+ */
 class ContactController extends AbstractController
 {
     /**
@@ -31,37 +35,33 @@ class ContactController extends AbstractController
         $response_fail = 'Une erreur est intervenue.';
 
         // Honeypot captcha
-        if($nocomment == '') {
-
+        if ($nocomment == '') {
             $params = $_POST;
-            foreach ( $params as $key=>$value ){
-
-                if(!($key == 'ip' || $key == 'emailsubject' || $key == 'url' || $key == 'emailto' || $key == 'nocomment' || $key == 'v_error' || $key == 'v_email')){
-
+            foreach ($params as $key => $value) {
+                if (!($key == 'ip' || $key == 'emailsubject' || $key == 'url' || $key == 'emailto' || $key == 'nocomment' || $key == 'v_error' || $key == 'v_email')) {
                     $key = ucwords(str_replace("-", " ", $key));
 
-                    if ( gettype( $value ) == "array" ){
+                    if (gettype($value) == "array") {
                         $message .= "$key: \n";
-                        foreach ( $value as $two_dim_value )
+                        foreach ($value as $two_dim_value) {
                             $message .= "...$two_dim_value<br>";
-                    }else {
+                        }
+                    } else {
                         $message .= $value != '' ? "$key: $value\n" : '';
                     }
                 }
             }
 
             $response = self::sendEmail($subject, $message, $emailto, $emailfrom);
-
         } else {
-
             $response = $response_fail;
-
         }
 
         echo $response;
     }
 
-    public function sendEmail($subject, $content, $emailto, $emailfrom) {
+    public function sendEmail($subject, $content, $emailto, $emailfrom)
+    {
 
         $from = $emailfrom;
         $response_sent = 'Merci. Votre message a bien été envoyé';
@@ -77,8 +77,7 @@ class ContactController extends AbstractController
         // Setup final message
         $body = wordwrap($message);
 
-        if($use_smtp == '1'){
-
+        if ($use_smtp == '1') {
             $SmtpServer = 'SMTP SERVER';
             $SmtpPort = 'SMTP PORT';
             $SmtpUser = 'SMTP USER';
@@ -88,9 +87,7 @@ class ContactController extends AbstractController
             $SMTPMail = new SMTPClient($SmtpServer, $SmtpPort, $SmtpUser, $SmtpPass, $from, $to, $subject, $body);
             $SMTPChat = $SMTPMail->self::SendMail();
             $response = $SMTPChat ? $response_sent : $response_error;
-
         } else {
-
             // Create header
             $headers = "From: $from\r\n";
             $headers .= "MIME-Version: 1.0\r\n";
@@ -100,12 +97,12 @@ class ContactController extends AbstractController
             // Send email
             $mail_sent = @mail($emailto, $subject, $body, $headers);
             $response = $mail_sent ? $response_sent : $response_error;
-
         }
         return $response;
     }
 
-    private function filter($value) {
+    private function filter($value)
+    {
         $pattern = array("/\n/", "/\r/", "/content-type:/i", "/to:/i", "/from:/i", "/cc:/i");
         $value = preg_replace($pattern, "", $value);
         return $value;

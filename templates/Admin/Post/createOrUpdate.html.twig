@@ -14,9 +14,14 @@
                 {{ form_start(form) }}
                 <fieldset>
                     <div class="row">
-                        <div class="col-md-offset-3 col-md-6 col-sm-12">
+                        <div class="col-md-offset-2 col-md-8 col-sm-12">
                             <div class="form-row text-input-row text-field">
-                                {{ form_row(form.title, {'label': 'Titre *'}) }}
+                                {{ form_row(form.title) }}
+                            </div>
+                        </div>
+                        <div class="col-md-offset-2 col-md-8 col-sm-12">
+                            <div class="form-row text-input-row text-field">
+                                {{ form_row(form.content) }}
                             </div>
                         </div>
                         <div class="col-sm-6 col-xs-6">
